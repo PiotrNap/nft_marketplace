@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . .
 RUN go mod download
 
-EXPOSE 8080
+EXPOSE 8000
 
 # DEVELOPMENT
 FROM base AS dev

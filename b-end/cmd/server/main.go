@@ -4,8 +4,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"nft_marketplace/eth/source/handlers"
-	"nft_marketplace/eth/source/db"
+
+    "github.com/gorilla/mux"
+
+	// "nft_marketplace/eth/source/handlers"
+	// "nft_marketplace/eth/source/handlers/users"
+	"nft_marketplace/eth/source/database"
+	"nft_marketplace/eth/source/handlers/users"
 )
 
 // store nfts info hash with:
@@ -18,14 +23,18 @@ func main() {
     log.SetPrefix("nft_marketplace")
     log.SetFlags(0)
 
-    db.Init()
+    database.Init()
 
-    mux := http.NewServeMux()
+    r := mux.NewRouter()
 
-    mux.HandleFunc("/hello", handlers.HelloHandler)
+    // mux.HandleFunc("/hello", handlers.HelloHandler)
+
+    // Users
+    r.HandleFunc("/users", users.CreateNewUser).Methods("POST")
+    r.HandleFunc("/users/{id}", users.GetUserByID).Methods("GET")
     
     fmt.Println("Server starting to listen on port: 8000")
-    err := http.ListenAndServe(":8000", mux)
+    err := http.ListenAndServe(":8000", r)
 
     if err != nil {
         log.Fatal("Server failed to start" , err)
