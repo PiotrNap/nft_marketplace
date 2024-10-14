@@ -26,6 +26,7 @@ type Item struct {
 
 type User struct {
     ID              uint      `gorm:"primaryKey"`
+    Username        string    `gorm:""`
     PubKey          string    `gorm:"unique; size:66; not null; index"`
     Items           []Item    `gorm:"foreignKey:OwnerID; not null"`
     Bids            []Bid     `gorm:"foreignKey:UserID; not null"`

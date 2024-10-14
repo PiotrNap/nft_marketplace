@@ -32,6 +32,7 @@ func main() {
     // Users
     r.HandleFunc("/users", users.CreateNewUser).Methods("POST")
     r.HandleFunc("/users/{id}", users.GetUserByID).Methods("GET")
+    r.HandleFunc("/users/username", users.CheckIfUserExists).Methods("POST")
     
     fmt.Println("Server starting to listen on port: 8000")
     err := http.ListenAndServe(":8000", r)
