@@ -6,6 +6,7 @@ import (
 	"net/http"
 
     "github.com/gorilla/mux"
+    "github.com/rs/cors"
 
 	// "nft_marketplace/eth/source/handlers"
 	// "nft_marketplace/eth/source/handlers/users"
@@ -33,9 +34,18 @@ func main() {
     r.HandleFunc("/users", users.CreateNewUser).Methods("POST")
     r.HandleFunc("/users/{id}", users.GetUserByID).Methods("GET")
     r.HandleFunc("/users/username", users.CheckIfUserExists).Methods("POST")
+
+    c := cors.New(cors.Options{
+        AllowedOrigins:     []string{"http://localhost:3000"},
+        AllowedMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+        AllowedHeaders:     []string{"Authorization", "Content-Type"},
+        AllowCredentials:   true,
+    })
+
+    handler := c.Handler(r)
     
     fmt.Println("Server starting to listen on port: 8000")
-    err := http.ListenAndServe(":8000", r)
+    err := http.ListenAndServe(":8000", handler)
 
     if err != nil {
         log.Fatal("Server failed to start" , err)
