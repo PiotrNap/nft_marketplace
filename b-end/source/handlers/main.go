@@ -41,3 +41,14 @@ func JWTAuthMiddleware(next http.Handler) http.Handler {
         next.ServeHTTP(w,r)
     })
 }
+
+func RateLimitMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func (w http.ResponseWriter, r *http.Request) {
+        
+        if !limiter.Allow() {
+            http.Error(w, "Max request limit reached", http.StatusTooManyRequests)
+        }
+
+        next.ServeHTTP(w,r)
+    })
+}

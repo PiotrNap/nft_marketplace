@@ -8,9 +8,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
+	"golang.org/x/time/rate"
 
-	// "nft_marketplace/eth/source/handlers"
-	// "nft_marketplace/eth/source/handlers/users"
 	"nft_marketplace/eth/source/database"
 	"nft_marketplace/eth/source/handlers"
 	"nft_marketplace/eth/source/handlers/users"
@@ -21,6 +20,8 @@ import (
 // - list of current bid
 // - `itemInfoHash` (value used inside smart contract)
 // - duration of the auction
+
+var timeLimiter = rate.NewLimiter(5,1)
 
 func main() {
     log.SetPrefix("nft_marketplace")
@@ -46,7 +47,7 @@ func main() {
         AllowCredentials:   true,
     })
 
-    handler := c.Handler(r)
+    handler := handlers.RateLimitMiddleware(c.Handler(r))
     
     fmt.Println("Server starting to listen on port: 8000")
     err := http.ListenAndServe(":8000", handler)
