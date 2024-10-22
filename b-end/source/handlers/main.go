@@ -2,39 +2,17 @@ package handlers
 
 import (
 	"net/http"
-	"os"
 	"strings"
-	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"golang.org/x/time/rate"
 )
+
+var limiter = rate.NewLimiter(5,1)
 
 type Claims struct {
     Username string `json:"username"`
     jwt.RegisteredClaims
-}
-
-func GenerateJWT(username string) (string, error) {
-    var jwtSecretString = os.Getenv("JWT_SECRET")
-    jwtSecretBytes := []byte(jwtSecretString)
-
-    expirationTime := time.Now().Add(time.Hour * 24)
-
-    claims := &Claims{
-        Username: username,
-        RegisteredClaims: jwt.RegisteredClaims{
-            ExpiresAt: jwt.NewNumericDate(expirationTime),
-        },
-    }
-
-    token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-    tokenString, err := token.SignedString(jwtSecretBytes)
-    if err != nil {
-        return "", err
-    }
-
-    return tokenString, nil
 }
 
 func JWTAuthMiddleware(next http.Handler) http.Handler {
