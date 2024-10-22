@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
-import { WalletConnectForm } from "@/components/user-auth/WalletConnectForm"
+import { CreateAccountForm } from "@/components/user-auth/CreateAccountForm"
 import { buttonVariants } from "@/components/ui/button"
 
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ export default function AuthenticationPage() {
           className="hidden dark:block"
         />
       </div>
-      <div className="container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Link
           href="/examples/authentication"
           className={cn(
@@ -61,7 +61,7 @@ export default function AuthenticationPage() {
             <blockquote className="space-y-2">
               <p className="text-lg">
                 &ldquo;This platform has saved me countless hours of search and helped me
-                buy stunning NFTs to my collection faster than ever before.&rdquo;
+                buy stunning NFTs for my collection faster than ever before.&rdquo;
               </p>
               <footer className="text-sm">Sofia Davis</footer>
             </blockquote>
@@ -72,10 +72,10 @@ export default function AuthenticationPage() {
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">Create an account</h1>
               <p className="text-sm text-muted-foreground">
-                Enter your email below to create your account
+                Enter your new username below to create your account
               </p>
             </div>
-            <WalletConnectForm />
+            <CreateAccountForm />
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link

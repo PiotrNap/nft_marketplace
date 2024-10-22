@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   description: "Example dashboard app built using the components.",
 }
 
+// - use ethers' convert functions
+// - when submitting a tx, await it (ei. tx.wait())
+
 export default function DashboardPage() {
   return (
     <>
@@ -86,7 +89,7 @@ export default function DashboardPage() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">$45,231.89</div>
+                    <div className="text-2xl font-bold">ETH45.89</div>
                     <p className="text-xs text-muted-foreground">
                       +20.1% from last month
                     </p>
@@ -94,7 +97,7 @@ export default function DashboardPage() {
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
+                    <CardTitle className="text-sm font-medium">Viewers</CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -135,13 +138,13 @@ export default function DashboardPage() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+12,234</div>
+                    <div className="text-2xl font-bold">+12</div>
                     <p className="text-xs text-muted-foreground">+19% from last month</p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Active Now</CardTitle>
+                    <CardTitle className="text-sm font-medium">Active Bids</CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -173,7 +176,7 @@ export default function DashboardPage() {
                 <Card className="col-span-3">
                   <CardHeader>
                     <CardTitle>Recent Sales</CardTitle>
-                    <CardDescription>You made 265 sales this month.</CardDescription>
+                    <CardDescription>You made 12 sales this month.</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <RecentSales />

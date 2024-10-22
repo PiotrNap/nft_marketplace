@@ -15,7 +15,7 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
         href="/examples/dashboard"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Customers
+        Marketplace
       </Link>
       <Link
         href="/examples/dashboard"
