@@ -25,11 +25,12 @@ services:
       DB_HOST: db
       DB_PORT: 5432
       ENV: prod
+      JWT_SECRET: 'replace me'
     image: golang:1.23.2
     networks:
       - nft_marketplace_network
     ports:
-      - "8080:8080"
+      - "8000:8000"
     command: /app/build/server
 
 networks:

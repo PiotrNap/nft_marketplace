@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
-    "github.com/gorilla/mux"
-    "github.com/rs/cors"
+	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 
 	// "nft_marketplace/eth/source/handlers"
 	// "nft_marketplace/eth/source/handlers/users"
 	"nft_marketplace/eth/source/database"
+	"nft_marketplace/eth/source/handlers"
 	"nft_marketplace/eth/source/handlers/users"
 )
 
@@ -24,15 +26,17 @@ func main() {
     log.SetPrefix("nft_marketplace")
     log.SetFlags(0)
 
+    if jwtSecret :=  os.Getenv("JWT_SECRET"); jwtSecret == "" {
+       log.Fatal("Missing env variable JWT_SECRET") 
+    }
+
     database.Init()
 
     r := mux.NewRouter()
 
-    // mux.HandleFunc("/hello", handlers.HelloHandler)
-
     // Users
     r.HandleFunc("/users", users.CreateNewUser).Methods("POST")
-    r.HandleFunc("/users/{id}", users.GetUserByID).Methods("GET")
+    r.Handle("/users/{id}", handlers.JWTAuthMiddleware(http.HandlerFunc(users.GetUserByID))).Methods("GET")
     r.HandleFunc("/users/username", users.CheckIfUserExists).Methods("POST")
 
     c := cors.New(cors.Options{
