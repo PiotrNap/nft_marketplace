@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type Bid struct {
     ID              uint      `gorm:"primaryKey"`
@@ -26,8 +28,12 @@ type Item struct {
 
 type User struct {
     ID              uint      `gorm:"primaryKey"`
-    Username        string    `gorm:""`
-    PubKey          string    `gorm:"unique; size:66; not null; index"`
-    Items           []Item    `gorm:"foreignKey:OwnerID; not null"`
-    Bids            []Bid     `gorm:"foreignKey:UserID; not null"`
+    Username        string    `gorm:"not null"`
+    Challenge       string    `gorm:"size:66"`
+    Salt            string    `gorm:"size:36"`
+    Verified        bool      `gorm:"not null; default=false"`
+    PubKey          string    `gorm:"size:66; index"`
+    Address         string    `gorm:"size:42; not null; index"`
+    Items           []Item    `gorm:"foreignKey:OwnerID"`
+    Bids            []Bid     `gorm:"foreignKey:UserID"`
 }

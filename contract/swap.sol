@@ -50,6 +50,7 @@ contract Swap {
     function bid(bytes20 _itemInfoHash) public payable {
         ItemInfo storage _item = itemsInfo[_itemInfoHash];
 
+        require(_item.ownerAddr != msg.sender, "You cannot bid your own items");
         require(_item.ownerAddr != address(0), "Item with a given hash doesn't appear to be listed");
         require(_item.minPrice < msg.value, "Your offered price for this item is too low");
         require(_item.auctionEndTime > block.timestamp);

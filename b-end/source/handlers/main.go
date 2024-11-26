@@ -1,18 +1,40 @@
 package handlers
 
 import (
+	"context"
 	"net/http"
 	"strings"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/google/uuid"
 	"golang.org/x/time/rate"
 )
 
-var limiter = rate.NewLimiter(5,1)
+var limiter = rate.NewLimiter(10,5)
+type key int
+var requestIDKey key = 0
 
 type Claims struct {
     Username string `json:"username"`
     jwt.RegisteredClaims
+}
+
+func GetRequestId(ctx context.Context) string {
+    if reqID, ok := ctx.Value(requestIDKey).(string); ok {
+        return ""
+    } else {
+        return reqID
+    }
+}
+
+func RequestIDMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func (w http.ResponseWriter, r *http.Request) {
+       requestID := uuid.New().String()
+
+       r.Header.Set("X-Request-ID", requestID)
+
+       next.ServeHTTP(w, r)
+    })
 }
 
 func JWTAuthMiddleware(next http.Handler) http.Handler {

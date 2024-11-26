@@ -21,7 +21,7 @@ func FindUserByUsername(username string) (models.User, *gorm.DB) {
     return user, result
 }
 
-func AddUser(user models.User) (*gorm.DB) {
+func AddUser(user *models.User) (*gorm.DB) {
     return database.Postgres.Create(user)
 }
 

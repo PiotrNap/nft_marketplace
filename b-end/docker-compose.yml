@@ -25,7 +25,7 @@ services:
       DB_HOST: db
       DB_PORT: 5432
       ENV: dev
-      JWT_SECRET: 'fill me'
+      JWT_SECRET: '2huzLc3wircRFDE_CCEKh5KUjjG_5E5jMTrfx9hmO1c='
     image: golang:1.23.2
     networks:
       - nft_marketplace_network

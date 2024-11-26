@@ -77,7 +77,7 @@ export default function AuthenticationPage() {
             </div>
             <CreateAccountForm />
             <p className="px-8 text-center text-sm text-muted-foreground">
-              By clicking continue, you agree to our{" "}
+              By clicking sign up, you agree to our{" "}
               <Link
                 href="/terms"
                 className="underline underline-offset-4 hover:text-primary"
